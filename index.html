@@ -1,0 +1,1458 @@
+<html lang="en" class=""><head>
+
+  <meta charset="UTF-8">
+  <title>𝕸𝖚𝖘𝖎𝖈💕🌹𝕮𝖍𝖔𝖎𝖈𝖊𝖘</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<style>
+    /* Container για χριστουγεννιάτικα στολίδια */
+    #christmas-decoration-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 9999;
+        overflow: visible;
+    }
+
+    /* Χιονόπτωση */
+    .xmas-snowflake {
+        position: absolute;
+        top: -10px;
+        color: #b0d4e3;
+        font-size: 1em;
+        opacity: 0.9;
+        animation: xmas-fall linear infinite;
+        pointer-events: none;
+        text-shadow: 0 0 5px rgba(176, 212, 227, 0.8);
+    }
+
+    @keyframes xmas-fall {
+        to {
+            transform: translateY(calc(100vh + 20px)) rotate(360deg);
+        }
+    }
+
+    /* Γιρλάντα πάνω - ξεκινάει 50px από την κορυφή */
+    .xmas-lights-top {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    .xmas-wire-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(42, 74, 58, 0.6);
+    }
+
+    /* Γιρλάντα αριστερά - ξεκινάει 50px από την κορυφή */
+    .xmas-lights-left {
+        position: absolute;
+        left: 0;
+        top: 50px;
+        width: 60px;
+        height: calc(100% - 50px);
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    .xmas-wire-left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: rgba(42, 74, 58, 0.6);
+    }
+
+    /* Γιρλάντα δεξιά - ξεκινάει 50px από την κορυφή */
+    .xmas-lights-right {
+        position: absolute;
+        right: 0;
+        top: 50px;
+        width: 60px;
+        height: calc(100% - 50px);
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    .xmas-wire-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: rgba(42, 74, 58, 0.6);
+    }
+
+    /* Λαμπάκια - πιο έντονα χρώματα */
+    .xmas-light {
+        position: absolute;
+        width: 12px;
+        height: 18px;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 0 20px currentColor, 0 0 35px currentColor, 0 0 50px currentColor;
+        animation: xmas-twinkle 1.5s ease-in-out infinite;
+        pointer-events: none;
+        filter: saturate(1.5) brightness(1.2);
+    }
+
+    .xmas-light::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background: #333;
+        border-radius: 50%;
+    }
+
+    .xmas-light::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+        border-radius: 0 0 6px 6px;
+    }
+
+    @keyframes xmas-twinkle {
+        0%, 100% { 
+            opacity: 1; 
+            filter: saturate(1.5) brightness(1.3);
+        }
+        50% { 
+            opacity: 0.5; 
+            filter: saturate(1.2) brightness(0.8);
+        }
+    }
+
+    /* Λαμπάκια κάθετα για αριστερά */
+    .xmas-light-vertical-left {
+        width: 18px;
+        height: 12px;
+        border-radius: 0 6px 6px 0;
+    }
+
+    .xmas-light-vertical-left::before {
+        top: 50%;
+        left: -6px;
+        transform: translateY(-50%);
+    }
+
+    .xmas-light-vertical-left::after {
+        border-radius: 0 6px 6px 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+    }
+
+    /* Λαμπάκια κάθετα για δεξιά */
+    .xmas-light-vertical-right {
+        width: 18px;
+        height: 12px;
+        border-radius: 6px 0 0 6px;
+    }
+
+    .xmas-light-vertical-right::before {
+        top: 50%;
+        right: -6px;
+        left: auto;
+        transform: translateY(-50%);
+    }
+
+    .xmas-light-vertical-right::after {
+        border-radius: 6px 0 0 6px;
+        background: linear-gradient(-90deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+    }
+</style>
+
+<script>
+    (function() {
+        // Δημιουργούμε το main container
+        const decorationContainer = document.createElement('div');
+        decorationContainer.id = 'christmas-decoration-container';
+        decorationContainer.innerHTML = `
+            <!-- Γιρλάντα πάνω -->
+            <div class="xmas-lights-top">
+                <div class="xmas-wire-top"></div>
+                <div id="xmas-lights-top"></div>
+            </div>
+
+            <!-- Γιρλάντα αριστερά -->
+            <div class="xmas-lights-left">
+                <div class="xmas-wire-left"></div>
+                <div id="xmas-lights-left"></div>
+            </div>
+
+            <!-- Γιρλάντα δεξιά -->
+            <div class="xmas-lights-right">
+                <div class="xmas-wire-right"></div>
+                <div id="xmas-lights-right"></div>
+            </div>
+
+            <!-- Χιονόπτωση -->
+            <div id="xmas-snowflakes"></div>
+        `;
+
+        // Προσθέτουμε το container στο body
+        document.body.appendChild(decorationContainer);
+
+        // Πιο έντονα και ζωηρά χρώματα
+        const colors = [
+            '#ff0000',  // Κόκκινο
+            '#00ff00',  // Πράσινο
+            '#ffff00',  // Κίτρινο
+            '#ff00ff',  // Μωβ
+            '#00ffff',  // Κυανό
+            '#ff6600',  // Πορτοκαλί
+            '#0066ff',  // Μπλε
+            '#ff0099'   // Ροζ
+        ];
+
+        // Λαμπάκια πάνω
+        const lightsTopContainer = document.getElementById('xmas-lights-top');
+        const numLightsTop = 40;
+
+        for (let i = 0; i < numLightsTop; i++) {
+            const light = document.createElement('div');
+            light.className = 'xmas-light';
+            light.style.left = `${(i / numLightsTop) * 100}%`;
+            light.style.color = colors[i % colors.length];
+            light.style.animationDelay = `${Math.random() * 1.5}s`;
+            
+            const curve = Math.sin((i / numLightsTop) * Math.PI * 4) * 15;
+            light.style.top = `${curve + 10}px`;
+            
+            lightsTopContainer.appendChild(light);
+        }
+
+        // Λαμπάκια αριστερά
+        const lightsLeftContainer = document.getElementById('xmas-lights-left');
+        const numLightsLeft = 25;
+
+        for (let i = 0; i < numLightsLeft; i++) {
+            const light = document.createElement('div');
+            light.className = 'xmas-light xmas-light-vertical-left';
+            light.style.top = `${(i / numLightsLeft) * 100}%`;
+            light.style.color = colors[(i + 1) % colors.length];
+            light.style.animationDelay = `${Math.random() * 1.5}s`;
+            
+            const curve = Math.sin((i / numLightsLeft) * Math.PI * 3) * 10;
+            light.style.left = `${curve + 10}px`;
+            
+            lightsLeftContainer.appendChild(light);
+        }
+
+        // Λαμπάκια δεξιά
+        const lightsRightContainer = document.getElementById('xmas-lights-right');
+        const numLightsRight = 25;
+
+        for (let i = 0; i < numLightsRight; i++) {
+            const light = document.createElement('div');
+            light.className = 'xmas-light xmas-light-vertical-right';
+            light.style.top = `${(i / numLightsRight) * 100}%`;
+            light.style.color = colors[(i + 2) % colors.length];
+            light.style.animationDelay = `${Math.random() * 1.5}s`;
+            
+            const curve = Math.sin((i / numLightsRight) * Math.PI * 3) * 10;
+            light.style.right = `${curve + 10}px`;
+            
+            lightsRightContainer.appendChild(light);
+        }
+
+        // Δημιουργία χιονονιφάδων
+        const snowflakesContainer = document.getElementById('xmas-snowflakes');
+        const numSnowflakes = 50;
+
+        for (let i = 0; i < numSnowflakes; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'xmas-snowflake';
+            snowflake.textContent = '❄';
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${8 + Math.random() * 10}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s`;
+            snowflake.style.fontSize = `${0.5 + Math.random() * 1.5}em`;
+            snowflakesContainer.appendChild(snowflake);
+        }
+
+        console.log('🎄 Χριστουγεννιάτικα στολίδια φορτώθηκαν επιτυχώς!');
+    })();
+</script><div id="christmas-decoration-container">
+            <!-- Γιρλάντα πάνω -->
+            <div class="xmas-lights-top">
+                <div class="xmas-wire-top"></div>
+                <div id="xmas-lights-top"><div class="xmas-light" style="left: 0%; color: rgb(255, 0, 0); animation-delay: 0.609407s; top: 10px;"></div><div class="xmas-light" style="left: 2.5%; color: rgb(0, 255, 0); animation-delay: 0.174785s; top: 14.6353px;"></div><div class="xmas-light" style="left: 5%; color: rgb(255, 255, 0); animation-delay: 1.31407s; top: 18.8168px;"></div><div class="xmas-light" style="left: 7.5%; color: rgb(255, 0, 255); animation-delay: 0.577838s; top: 22.1353px;"></div><div class="xmas-light" style="left: 10%; color: rgb(0, 255, 255); animation-delay: 1.48964s; top: 24.2658px;"></div><div class="xmas-light" style="left: 12.5%; color: rgb(255, 102, 0); animation-delay: 0.848177s; top: 25px;"></div><div class="xmas-light" style="left: 15%; color: rgb(0, 102, 255); animation-delay: 0.0107808s; top: 24.2658px;"></div><div class="xmas-light" style="left: 17.5%; color: rgb(255, 0, 153); animation-delay: 0.273623s; top: 22.1353px;"></div><div class="xmas-light" style="left: 20%; color: rgb(255, 0, 0); animation-delay: 0.87075s; top: 18.8168px;"></div><div class="xmas-light" style="left: 22.5%; color: rgb(0, 255, 0); animation-delay: 0.930544s; top: 14.6353px;"></div><div class="xmas-light" style="left: 25%; color: rgb(255, 255, 0); animation-delay: 0.300903s; top: 10px;"></div><div class="xmas-light" style="left: 27.5%; color: rgb(255, 0, 255); animation-delay: 1.13729s; top: 5.36475px;"></div><div class="xmas-light" style="left: 30%; color: rgb(0, 255, 255); animation-delay: 0.0085886s; top: 1.18322px;"></div><div class="xmas-light" style="left: 32.5%; color: rgb(255, 102, 0); animation-delay: 1.08503s; top: -2.13525px;"></div><div class="xmas-light" style="left: 35%; color: rgb(0, 102, 255); animation-delay: 0.494148s; top: -4.26585px;"></div><div class="xmas-light" style="left: 37.5%; color: rgb(255, 0, 153); animation-delay: 0.922132s; top: -5px;"></div><div class="xmas-light" style="left: 40%; color: rgb(255, 0, 0); animation-delay: 0.813953s; top: -4.26585px;"></div><div class="xmas-light" style="left: 42.5%; color: rgb(0, 255, 0); animation-delay: 0.754294s; top: -2.13525px;"></div><div class="xmas-light" style="left: 45%; color: rgb(255, 255, 0); animation-delay: 1.28372s; top: 1.18322px;"></div><div class="xmas-light" style="left: 47.5%; color: rgb(255, 0, 255); animation-delay: 0.89452s; top: 5.36475px;"></div><div class="xmas-light" style="left: 50%; color: rgb(0, 255, 255); animation-delay: 0.302494s; top: 10px;"></div><div class="xmas-light" style="left: 52.5%; color: rgb(255, 102, 0); animation-delay: 0.230859s; top: 14.6353px;"></div><div class="xmas-light" style="left: 55%; color: rgb(0, 102, 255); animation-delay: 0.0532047s; top: 18.8168px;"></div><div class="xmas-light" style="left: 57.5%; color: rgb(255, 0, 153); animation-delay: 1.16s; top: 22.1353px;"></div><div class="xmas-light" style="left: 60%; color: rgb(255, 0, 0); animation-delay: 1.04684s; top: 24.2658px;"></div><div class="xmas-light" style="left: 62.5%; color: rgb(0, 255, 0); animation-delay: 1.34682s; top: 25px;"></div><div class="xmas-light" style="left: 65%; color: rgb(255, 255, 0); animation-delay: 0.180555s; top: 24.2658px;"></div><div class="xmas-light" style="left: 67.5%; color: rgb(255, 0, 255); animation-delay: 0.827355s; top: 22.1353px;"></div><div class="xmas-light" style="left: 70%; color: rgb(0, 255, 255); animation-delay: 0.156384s; top: 18.8168px;"></div><div class="xmas-light" style="left: 72.5%; color: rgb(255, 102, 0); animation-delay: 1.03577s; top: 14.6353px;"></div><div class="xmas-light" style="left: 75%; color: rgb(0, 102, 255); animation-delay: 0.69211s; top: 10px;"></div><div class="xmas-light" style="left: 77.5%; color: rgb(255, 0, 153); animation-delay: 0.547139s; top: 5.36475px;"></div><div class="xmas-light" style="left: 80%; color: rgb(255, 0, 0); animation-delay: 1.41997s; top: 1.18322px;"></div><div class="xmas-light" style="left: 82.5%; color: rgb(0, 255, 0); animation-delay: 0.172649s; top: -2.13525px;"></div><div class="xmas-light" style="left: 85%; color: rgb(255, 255, 0); animation-delay: 0.375434s; top: -4.26585px;"></div><div class="xmas-light" style="left: 87.5%; color: rgb(255, 0, 255); animation-delay: 0.0676527s; top: -5px;"></div><div class="xmas-light" style="left: 90%; color: rgb(0, 255, 255); animation-delay: 0.469258s; top: -4.26585px;"></div><div class="xmas-light" style="left: 92.5%; color: rgb(255, 102, 0); animation-delay: 0.765332s; top: -2.13525px;"></div><div class="xmas-light" style="left: 95%; color: rgb(0, 102, 255); animation-delay: 0.250784s; top: 1.18322px;"></div><div class="xmas-light" style="left: 97.5%; color: rgb(255, 0, 153); animation-delay: 0.0412732s; top: 5.36475px;"></div></div>
+            </div>
+
+            <!-- Γιρλάντα αριστερά -->
+            <div class="xmas-lights-left">
+                <div class="xmas-wire-left"></div>
+                <div id="xmas-lights-left"><div class="xmas-light xmas-light-vertical-left" style="top: 0%; color: rgb(0, 255, 0); animation-delay: 0.828106s; left: 10px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 4%; color: rgb(255, 255, 0); animation-delay: 0.649699s; left: 13.6812px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 8%; color: rgb(255, 0, 255); animation-delay: 0.560484s; left: 16.8455px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 12%; color: rgb(0, 255, 255); animation-delay: 0.0247962s; left: 19.0483px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 16%; color: rgb(255, 102, 0); animation-delay: 0.651151s; left: 19.9803px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 20%; color: rgb(0, 102, 255); animation-delay: 0.0359991s; left: 19.5106px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 24%; color: rgb(255, 0, 153); animation-delay: 1.01665s; left: 17.7051px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 28%; color: rgb(255, 0, 0); animation-delay: 1.25198s; left: 14.8175px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 32%; color: rgb(0, 255, 0); animation-delay: 1.49973s; left: 11.2533px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 36%; color: rgb(255, 255, 0); animation-delay: 0.928119s; left: 7.5131px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 40%; color: rgb(255, 0, 255); animation-delay: 0.856887s; left: 4.12215px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 44%; color: rgb(0, 255, 255); animation-delay: 0.813931s; left: 1.55672px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 48%; color: rgb(255, 102, 0); animation-delay: 0.882727s; left: 0.177127px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 52%; color: rgb(0, 102, 255); animation-delay: 1.16788s; left: 0.177127px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 56%; color: rgb(255, 0, 153); animation-delay: 0.280077s; left: 1.55672px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 60%; color: rgb(255, 0, 0); animation-delay: 0.498652s; left: 4.12215px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 64%; color: rgb(0, 255, 0); animation-delay: 0.626512s; left: 7.5131px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 68%; color: rgb(255, 255, 0); animation-delay: 0.768454s; left: 11.2533px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 72%; color: rgb(255, 0, 255); animation-delay: 1.07147s; left: 14.8175px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 76%; color: rgb(0, 255, 255); animation-delay: 0.113203s; left: 17.7051px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 80%; color: rgb(255, 102, 0); animation-delay: 1.30869s; left: 19.5106px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 84%; color: rgb(0, 102, 255); animation-delay: 0.279392s; left: 19.9803px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 88%; color: rgb(255, 0, 153); animation-delay: 0.899625s; left: 19.0483px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 92%; color: rgb(255, 0, 0); animation-delay: 0.912524s; left: 16.8455px;"></div><div class="xmas-light xmas-light-vertical-left" style="top: 96%; color: rgb(0, 255, 0); animation-delay: 1.33492s; left: 13.6812px;"></div></div>
+            </div>
+
+            <!-- Γιρλάντα δεξιά -->
+            <div class="xmas-lights-right">
+                <div class="xmas-wire-right"></div>
+                <div id="xmas-lights-right"><div class="xmas-light xmas-light-vertical-right" style="top: 0%; color: rgb(255, 255, 0); animation-delay: 0.588002s; right: 10px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 4%; color: rgb(255, 0, 255); animation-delay: 1.23985s; right: 13.6812px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 8%; color: rgb(0, 255, 255); animation-delay: 1.41927s; right: 16.8455px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 12%; color: rgb(255, 102, 0); animation-delay: 0.993296s; right: 19.0483px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 16%; color: rgb(0, 102, 255); animation-delay: 1.49892s; right: 19.9803px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 20%; color: rgb(255, 0, 153); animation-delay: 0.0357487s; right: 19.5106px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 24%; color: rgb(255, 0, 0); animation-delay: 0.922107s; right: 17.7051px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 28%; color: rgb(0, 255, 0); animation-delay: 0.776199s; right: 14.8175px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 32%; color: rgb(255, 255, 0); animation-delay: 0.229936s; right: 11.2533px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 36%; color: rgb(255, 0, 255); animation-delay: 0.530614s; right: 7.5131px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 40%; color: rgb(0, 255, 255); animation-delay: 1.30343s; right: 4.12215px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 44%; color: rgb(255, 102, 0); animation-delay: 0.0163115s; right: 1.55672px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 48%; color: rgb(0, 102, 255); animation-delay: 0.574913s; right: 0.177127px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 52%; color: rgb(255, 0, 153); animation-delay: 1.33497s; right: 0.177127px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 56%; color: rgb(255, 0, 0); animation-delay: 1.46693s; right: 1.55672px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 60%; color: rgb(0, 255, 0); animation-delay: 0.960615s; right: 4.12215px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 64%; color: rgb(255, 255, 0); animation-delay: 0.0669382s; right: 7.5131px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 68%; color: rgb(255, 0, 255); animation-delay: 0.332731s; right: 11.2533px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 72%; color: rgb(0, 255, 255); animation-delay: 0.609221s; right: 14.8175px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 76%; color: rgb(255, 102, 0); animation-delay: 1.40319s; right: 17.7051px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 80%; color: rgb(0, 102, 255); animation-delay: 0.752221s; right: 19.5106px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 84%; color: rgb(255, 0, 153); animation-delay: 0.345271s; right: 19.9803px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 88%; color: rgb(255, 0, 0); animation-delay: 1.44332s; right: 19.0483px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 92%; color: rgb(0, 255, 0); animation-delay: 0.684897s; right: 16.8455px;"></div><div class="xmas-light xmas-light-vertical-right" style="top: 96%; color: rgb(255, 255, 0); animation-delay: 1.16701s; right: 13.6812px;"></div></div>
+            </div>
+
+            <!-- Χιονόπτωση -->
+            <div id="xmas-snowflakes"><div class="xmas-snowflake" style="left: 1.1402%; animation-duration: 8.93097s; animation-delay: 1.29996s; font-size: 0.555369em;">❄</div><div class="xmas-snowflake" style="left: 98.0488%; animation-duration: 17.0025s; animation-delay: 4.7913s; font-size: 1.34544em;">❄</div><div class="xmas-snowflake" style="left: 17.0513%; animation-duration: 13.2495s; animation-delay: 1.27094s; font-size: 1.15108em;">❄</div><div class="xmas-snowflake" style="left: 73.5966%; animation-duration: 13.257s; animation-delay: 3.32502s; font-size: 1.46139em;">❄</div><div class="xmas-snowflake" style="left: 54.2536%; animation-duration: 10.5154s; animation-delay: 4.12998s; font-size: 1.55017em;">❄</div><div class="xmas-snowflake" style="left: 28.5791%; animation-duration: 13.2219s; animation-delay: 1.53746s; font-size: 1.97105em;">❄</div><div class="xmas-snowflake" style="left: 56.4319%; animation-duration: 13.9516s; animation-delay: 4.80291s; font-size: 1.64261em;">❄</div><div class="xmas-snowflake" style="left: 29.6744%; animation-duration: 8.55922s; animation-delay: 3.38439s; font-size: 1.18391em;">❄</div><div class="xmas-snowflake" style="left: 8.18093%; animation-duration: 9.55858s; animation-delay: 1.76548s; font-size: 1.24503em;">❄</div><div class="xmas-snowflake" style="left: 94.4988%; animation-duration: 15.8284s; animation-delay: 1.49836s; font-size: 1.25132em;">❄</div><div class="xmas-snowflake" style="left: 61.3228%; animation-duration: 9.12363s; animation-delay: 2.53453s; font-size: 0.727649em;">❄</div><div class="xmas-snowflake" style="left: 18.649%; animation-duration: 13.6346s; animation-delay: 4.40489s; font-size: 1.11725em;">❄</div><div class="xmas-snowflake" style="left: 42.1005%; animation-duration: 12.4866s; animation-delay: 3.34007s; font-size: 0.555939em;">❄</div><div class="xmas-snowflake" style="left: 95.8933%; animation-duration: 10.7708s; animation-delay: 4.47224s; font-size: 0.903379em;">❄</div><div class="xmas-snowflake" style="left: 10.4197%; animation-duration: 13.1011s; animation-delay: 4.50151s; font-size: 0.54504em;">❄</div><div class="xmas-snowflake" style="left: 38.2738%; animation-duration: 16.5304s; animation-delay: 3.37868s; font-size: 1.52835em;">❄</div><div class="xmas-snowflake" style="left: 95.0666%; animation-duration: 12.6893s; animation-delay: 1.7309s; font-size: 1.57215em;">❄</div><div class="xmas-snowflake" style="left: 36.2073%; animation-duration: 16.935s; animation-delay: 3.73695s; font-size: 0.682376em;">❄</div><div class="xmas-snowflake" style="left: 89.4629%; animation-duration: 9.06564s; animation-delay: 4.2954s; font-size: 0.94242em;">❄</div><div class="xmas-snowflake" style="left: 47.4524%; animation-duration: 11.0713s; animation-delay: 1.00648s; font-size: 1.53019em;">❄</div><div class="xmas-snowflake" style="left: 36.4274%; animation-duration: 17.6564s; animation-delay: 3.08391s; font-size: 1.02606em;">❄</div><div class="xmas-snowflake" style="left: 69.792%; animation-duration: 11.6483s; animation-delay: 2.35361s; font-size: 1.4469em;">❄</div><div class="xmas-snowflake" style="left: 90.7144%; animation-duration: 16.4697s; animation-delay: 4.53675s; font-size: 1.57295em;">❄</div><div class="xmas-snowflake" style="left: 80.1253%; animation-duration: 13.3905s; animation-delay: 4.23489s; font-size: 0.76238em;">❄</div><div class="xmas-snowflake" style="left: 48.1695%; animation-duration: 17.8645s; animation-delay: 1.00633s; font-size: 1.83541em;">❄</div><div class="xmas-snowflake" style="left: 0.0802256%; animation-duration: 17.2123s; animation-delay: 3.62635s; font-size: 0.516381em;">❄</div><div class="xmas-snowflake" style="left: 21.5387%; animation-duration: 17.7583s; animation-delay: 2.95993s; font-size: 1.56414em;">❄</div><div class="xmas-snowflake" style="left: 92.4745%; animation-duration: 11.4466s; animation-delay: 1.15226s; font-size: 1.04631em;">❄</div><div class="xmas-snowflake" style="left: 90.9056%; animation-duration: 15.4109s; animation-delay: 3.77333s; font-size: 1.01688em;">❄</div><div class="xmas-snowflake" style="left: 82.9461%; animation-duration: 16.1271s; animation-delay: 3.06359s; font-size: 1.60032em;">❄</div><div class="xmas-snowflake" style="left: 90.3755%; animation-duration: 16.1371s; animation-delay: 2.26477s; font-size: 1.00852em;">❄</div><div class="xmas-snowflake" style="left: 4.89073%; animation-duration: 13.0316s; animation-delay: 3.83792s; font-size: 1.41496em;">❄</div><div class="xmas-snowflake" style="left: 3.78544%; animation-duration: 13.2278s; animation-delay: 1.30683s; font-size: 1.2532em;">❄</div><div class="xmas-snowflake" style="left: 54.7352%; animation-duration: 17.477s; animation-delay: 1.16451s; font-size: 1.22365em;">❄</div><div class="xmas-snowflake" style="left: 16.3298%; animation-duration: 15.7799s; animation-delay: 3.90702s; font-size: 1.26964em;">❄</div><div class="xmas-snowflake" style="left: 51.0371%; animation-duration: 13.3163s; animation-delay: 2.94161s; font-size: 1.47004em;">❄</div><div class="xmas-snowflake" style="left: 82.7935%; animation-duration: 17.8426s; animation-delay: 1.79486s; font-size: 1.81007em;">❄</div><div class="xmas-snowflake" style="left: 17.3368%; animation-duration: 14.2962s; animation-delay: 2.323s; font-size: 1.46379em;">❄</div><div class="xmas-snowflake" style="left: 57.3153%; animation-duration: 9.56312s; animation-delay: 0.754359s; font-size: 1.34148em;">❄</div><div class="xmas-snowflake" style="left: 73.1699%; animation-duration: 12.6285s; animation-delay: 0.860376s; font-size: 0.64948em;">❄</div><div class="xmas-snowflake" style="left: 58.1382%; animation-duration: 15.1231s; animation-delay: 3.24741s; font-size: 0.859384em;">❄</div><div class="xmas-snowflake" style="left: 92.9013%; animation-duration: 9.89735s; animation-delay: 2.98287s; font-size: 0.7154em;">❄</div><div class="xmas-snowflake" style="left: 92.8874%; animation-duration: 14.8536s; animation-delay: 0.626802s; font-size: 1.71289em;">❄</div><div class="xmas-snowflake" style="left: 48.1115%; animation-duration: 12.1766s; animation-delay: 1.56094s; font-size: 0.546254em;">❄</div><div class="xmas-snowflake" style="left: 28.7983%; animation-duration: 14.5352s; animation-delay: 1.68908s; font-size: 0.785794em;">❄</div><div class="xmas-snowflake" style="left: 13.6349%; animation-duration: 10.2602s; animation-delay: 1.56451s; font-size: 0.896776em;">❄</div><div class="xmas-snowflake" style="left: 69.4332%; animation-duration: 8.79663s; animation-delay: 1.20094s; font-size: 1.13355em;">❄</div><div class="xmas-snowflake" style="left: 15.0203%; animation-duration: 8.14765s; animation-delay: 4.17109s; font-size: 1.80817em;">❄</div><div class="xmas-snowflake" style="left: 93.708%; animation-duration: 10.6914s; animation-delay: 4.94366s; font-size: 0.636281em;">❄</div><div class="xmas-snowflake" style="left: 12.3668%; animation-duration: 17.0422s; animation-delay: 3.70566s; font-size: 1.11865em;">❄</div></div>
+        </div>
+  <style>
+@import url("https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap");
+@keyframes santa__mov {
+  0%, 100% {
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%) rotate(-10deg);
+  }
+  30% {
+    bottom: 100%;
+    left: 100%;
+    transform: translateX(100%) rotate(-10deg);
+  }
+  40% {
+    bottom: 0;
+    left: 100%;
+    transform: translateX(100%) rotateY(180deg);
+  }
+  70% {
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%) rotateY(180deg);
+  }
+}
+@keyframes santa__hand-left {
+  0% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-30deg);
+  }
+}
+@keyframes santa__hand-right {
+  0% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+@keyframes rope__left {
+  0% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes rope__right {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes rope__inner {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(-15deg) translateY(3px);
+  }
+}
+@keyframes reindeer__leg-front {
+  0% {
+    transform: rotate(-24deg);
+  }
+  100% {
+    transform: rotate(-13deg);
+  }
+}
+@keyframes reindeer__leg-front-extension {
+  0% {
+    transform: rotate(131deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes reindeer__leg-back {
+  0% {
+    transform: rotate(-73deg);
+  }
+  100% {
+    transform: rotate(-95deg);
+  }
+}
+@keyframes reindeer__leg-back-extension {
+  0% {
+    top: 4px;
+    left: -4px;
+    transform: rotate(50deg);
+  }
+  100% {
+    top: 0;
+    left: 0;
+    transform: rotate(0);
+  }
+}
+@keyframes snow {
+  0% {
+    fill-opacity: 1;
+  }
+  100% {
+    fill-opacity: 0;
+    transform: translateY(50%);
+  }
+}
+body {
+  overflow-x: hidden;
+  color: #fff;
+  margin: 0 auto;
+  
+}
+body * {
+  font-family: "Mountains of Christmas", cursive;
+}
+body p, body h1, body h2, body h3, body h4, body h5, body h6 {
+  margin: 0;
+}
+body a {
+  color: #fff;
+  text-decoration: none;
+}
+body ul, body li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.countdownSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.countdownSection:before, .countdownSection:after {
+  content: "";
+  position: absolute;
+}
+.countdownSection:before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
+  pointer-events: none;
+}
+.countdownSection:after {
+  width: 90%;
+  height: 90%;
+ 
+}
+.countdownSection .decorations {
+  pointer-events: none;
+}
+.countdownSection .decorations .decoration {
+ 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  filter: blur(3px);
+  z-index: 1;
+}
+.countdownSection .decorations .decoration[data-pos="top left"] {
+  top: 0;
+  left: 0;
+  transform: rotate(90deg);
+}
+.countdownSection .decorations .decoration[data-pos="top right"] {
+  top: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+.countdownSection .decorations .decoration[data-pos="bottom left"] {
+  bottom: 0;
+  left: 0;
+}
+.countdownSection .decorations .decoration[data-pos="bottom right"] {
+  bottom: 0;
+  right: 0;
+  transform: rotate(-90deg);
+}
+.countdownSection .decorations .snow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.countdownSection .decorations .snow .particle {
+  fill: #fff;
+  animation: snow 5s ease-out infinite;
+}
+.countdownSection .decorations .snow .particle:nth-child(2n) {
+  animation-delay: 1.5s;
+}
+.countdownSection .decorations .snow .particle:nth-child(3n) {
+  animation-delay: 2.5s;
+  animation-duration: 5.3s;
+}
+.countdownSection .decorations .snow .particle:nth-child(4n) {
+  animation-delay: 1s;
+  animation-duration: 5.2s;
+}
+.countdownSection .decorations .snow .particle:nth-child(5n) {
+  animation-delay: 3s;
+}
+.countdownSection .decorations .santaWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 430px;
+  height: 155px;
+  transform: translateX(-100%);
+  animation: santa__mov 15s linear infinite;
+}
+.countdownSection .decorations .santaWrapper .santa {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 125px;
+  height: 107px;
+  z-index: 10;
+  transform: rotateY(180deg);
+}
+.countdownSection .decorations .santaWrapper .santa:before, .countdownSection .decorations .santaWrapper .santa:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  background-color: #520d0d;
+}
+.countdownSection .decorations .santaWrapper .santa:before {
+  left: -10px;
+  width: 126px;
+  height: 30px;
+  border-radius: 10px 50% 10px 50%;
+  transform: rotate(0);
+  z-index: 10;
+}
+.countdownSection .decorations .santaWrapper .santa:after {
+  left: 70px;
+  width: 50px;
+  height: 53px;
+  border-radius: 50% 10px 22px 10px;
+  transform: rotate(8deg);
+}
+.countdownSection .decorations .santaWrapper .santa .hat > * {
+  position: absolute;
+  top: 7px;
+  left: 31px;
+  width: 43px;
+  height: 58px;
+  border-radius: 50%;
+  transform: rotate(28deg);
+  
+}
+.countdownSection .decorations .santaWrapper .santa .hat > *:nth-child(1):before, .countdownSection .decorations .santaWrapper .santa .hat > *:nth-child(1):after {
+  content: "";
+  position: absolute;
+}
+.countdownSection .decorations .santaWrapper .santa .hat > *:nth-child(1):before {
+  top: 9px;
+  left: 45px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.countdownSection .decorations .santaWrapper .santa .hat > *:nth-child(1):after {
+  top: 3px;
+  left: 19px;
+  width: 30px;
+  height: 7px;
+  border-radius: 50%;
+  transform: rotate(22deg);
+  background-color: #d63527;
+}
+.countdownSection .decorations .santaWrapper .santa .hat > *:nth-child(2) {
+  position: absolute;
+  top: 18px;
+  left: 31px;
+  width: 44px;
+  height: 34px;
+  border-radius: 50%;
+  transform: rotate(12deg);
+  background-color: #fff;
+}
+.countdownSection .decorations .santaWrapper .santa .face {
+  position: absolute;
+  top: 25px;
+  left: 37px;
+  width: 31px;
+  height: 17px;
+  border-radius: 20px 20px 50% 50%;
+  transform: rotate(10deg);
+  background-color: #fde2b7;
+  z-index: 10;
+}
+.countdownSection .decorations .santaWrapper .santa .face .eyeBrows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.countdownSection .decorations .santaWrapper .santa .face .eyeBrows.left {
+  top: 2px;
+  left: 22px;
+  transform: rotate(-65deg);
+}
+.countdownSection .decorations .santaWrapper .santa .face .eyeBrows.right {
+  top: 1px;
+  left: 4px;
+  transform: rotate(65deg);
+}
+.countdownSection .decorations .santaWrapper .santa .face .eye {
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  width: 3px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #000;
+}
+.countdownSection .decorations .santaWrapper .santa .face .eye.left {
+  top: 8px;
+  left: 2px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .eye.right {
+  top: 8px;
+  left: 20px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .nose {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  width: 12px;
+  height: 9px;
+  border-radius: 50%;
+  z-index: 10;
+  background-color: #f7d194;
+}
+.countdownSection .decorations .santaWrapper .santa .face .cheek {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  z-index: 10;
+  background-color: #f4cfe3;
+}
+.countdownSection .decorations .santaWrapper .santa .face .cheek.left {
+  top: 12px;
+  left: -3px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .cheek.right {
+  top: 13px;
+  left: 22px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > * {
+  position: absolute;
+  top: 8px;
+  left: -14px;
+  width: 15px;
+  height: 17px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:before, .countdownSection .decorations .santaWrapper .santa .face .beard > *:after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:before {
+  top: 12px;
+  left: 1px;
+  width: 15px;
+  height: 17px;
+  border-radius: 50%;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:nth-child(2) {
+  top: 16px;
+  left: -8px;
+  width: 26px;
+  height: 30px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:nth-child(2):before {
+  top: 16px;
+  left: 13px;
+  width: 19px;
+  height: 17px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:nth-child(2):after {
+  top: 1px;
+  left: 13px;
+  width: 19px;
+  height: 17px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:nth-child(3) {
+  top: 16px;
+  left: 14px;
+  width: 27px;
+  height: 28px;
+}
+.countdownSection .decorations .santaWrapper .santa .face .beard > *:nth-child(3):before {
+  top: -4px;
+  left: 13px;
+  width: 17px;
+  height: 17px;
+}
+.countdownSection .decorations .santaWrapper .santa .body {
+  position: absolute;
+  top: 54px;
+  left: 16px;
+  width: 88px;
+  height: 53px;
+}
+.countdownSection .decorations .santaWrapper .santa .body:before {
+  content: "";
+  position: absolute;
+  top: -23px;
+  right: -10px;
+  width: 53px;
+  height: 51px;
+  border-radius: 42% 50%;
+  background-color: #f3f0f0;
+  z-index: -1;
+}
+.countdownSection .decorations .santaWrapper .santa .body .sweater {
+  top: -3px;
+  left: 10px;
+  position: absolute;
+  width: 45px;
+  height: 39px;
+  border-radius: 50% 50% 10% 10%;
+  background-color: #d63527;
+  z-index: 5;
+}
+.countdownSection .decorations .santaWrapper .santa .body .sweater:before {
+  content: "";
+  top: 28px;
+  left: 0px;
+  position: absolute;
+  width: 45px;
+  height: 5px;
+  background-color: #000;
+  transform: rotate(1deg);
+}
+.countdownSection .decorations .santaWrapper .santa .body .sweater:after {
+  content: "";
+  top: 27px;
+  left: 10px;
+  position: absolute;
+  width: 7px;
+  height: 5px;
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  transform: rotate(1deg);
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand {
+  position: absolute;
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand.left {
+  top: 5px;
+  left: 19px;
+  width: 33px;
+  height: 30px;
+  overflow: hidden;
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand.left .inner {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  width: 49px;
+  z-index: 100;
+  height: 7px;
+  border-radius: 10px;
+  transform: rotate(12deg);
+  background-color: #d63527;
+  animation: santa__hand-right 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand.left .inner:before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 7px;
+  top: -2px;
+  left: -6px;
+  background-color: #000;
+  border-radius: 50%;
+  transform: rotate(25deg);
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand.right {
+  top: 4px;
+  left: 3px;
+  width: 11px;
+  height: 7px;
+  border-radius: 10px;
+  background-color: #d63527;
+  transform: rotate(25deg);
+  animation: santa__hand-left 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .santa .body .hand.right:before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 7px;
+  top: -2px;
+  left: -6px;
+  background-color: #000;
+  border-radius: 50%;
+  transform: rotate(10deg);
+}
+.countdownSection .decorations .santaWrapper .rope {
+  position: absolute;
+  top: 92px;
+  left: 84px;
+  width: 182px;
+  height: 33px;
+  overflow: hidden;
+  z-index: 10;
+  transform: rotate(0deg);
+  transform-origin: bottom right;
+  animation: rope__right 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .rope.back {
+  top: 85px;
+  left: 105px;
+  width: 149px;
+  transform: rotate(4deg);
+  z-index: 0;
+  transform-origin: top left;
+  animation: rope__left 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .rope:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -12px;
+  width: 100%;
+  height: 48px;
+  border-bottom: 1px solid #fff;
+  border-radius: 50%;
+}
+.countdownSection .decorations .santaWrapper .sled {
+  position: absolute;
+  bottom: -12px;
+  left: 0px;
+  width: 145px;
+  height: 11px;
+  transform: rotate(-3deg);
+  border-bottom: 5px solid #690e00;
+  border-right: 5px solid #690e00;
+  border-radius: 10px;
+  z-index: 10;
+}
+.countdownSection .decorations .santaWrapper .sled:before, .countdownSection .decorations .santaWrapper .sled:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background-color: #690e00;
+}
+.countdownSection .decorations .santaWrapper .sled:before {
+  top: 2px;
+  left: 34px;
+  height: 9px;
+}
+.countdownSection .decorations .santaWrapper .sled:after {
+  top: 3px;
+  left: 108px;
+  width: 5px;
+  height: 8px;
+}
+.countdownSection .decorations .santaWrapper .reindeer {
+  position: absolute;
+  width: 115px;
+  height: 155px;
+  top: 50px;
+  right: 0;
+  transform: rotate(14deg) translateX(calc(-100% - 30px));
+  z-index: 0;
+}
+.countdownSection .decorations .santaWrapper .reindeer.second {
+  top: 0;
+  transform: rotate(14deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer.second .rope {
+  top: 70px;
+  left: -55px;
+  width: 155px;
+  transform: rotate(-15deg);
+  animation: rope__inner 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .reindeer:before {
+  content: "";
+  position: absolute;
+  top: 65px;
+  left: 76px;
+  width: 8px;
+  height: 31px;
+  background-color: #520d0d;
+  z-index: 10;
+  transform: rotate(-55deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer:after {
+  content: "";
+  position: absolute;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face {
+  position: absolute;
+  width: 30px;
+  height: 22px;
+  top: 44px;
+  left: 72px;
+  border-radius: 10px 10px 50% 50%;
+  transform: rotate(-3deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face:before {
+  content: "";
+  position: absolute;
+  background-color: #cca58b;
+  width: 29px;
+  height: 16px;
+  border-radius: 50%;
+  top: 0px;
+  left: 11px;
+  transform: rotate(-49deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .face:after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  top: -8px;
+  left: 31px;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .ear {
+  position: absolute;
+  width: 21px;
+  height: 11px;
+  top: 4px;
+  left: -18px;
+  border-radius: 4px 0 50% 50%;
+  transform: rotate(4deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .ear:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 34px;
+  width: 4px;
+  height: 5px;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+  background-color: #000;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn {
+  position: absolute;
+  width: 29px;
+  height: 4px;
+  top: -7px;
+  left: -21px;
+  border-radius: 2px;
+  transform: rotate(38deg);
+  background-color: #f0dbc2;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn:before, .countdownSection .decorations .santaWrapper .reindeer .face .horn:after {
+  content: "";
+  position: absolute;
+  background-color: #f0dbc2;
+  border-radius: 2px;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.left {
+  top: -7px;
+  left: -21px;
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.left:before {
+  top: -4px;
+  left: 6px;
+  width: 14px;
+  height: 4px;
+  transform: rotate(43deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.left:after {
+  top: -4px;
+  left: 13px;
+  width: 14px;
+  height: 4px;
+  -webkit-transform: rotate(43deg);
+  transform: rotate(53deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.right {
+  top: -12px;
+  left: -6px;
+  width: 24px;
+  transform: rotate(62deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.right:before {
+  top: -3px;
+  left: 5px;
+  width: 10px;
+  height: 4px;
+  transform: rotate(43deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .face .horn.right:after {
+  top: -3px;
+  left: 11px;
+  width: 10px;
+  height: 4px;
+  transform: rotate(53deg);
+}
+.countdownSection .decorations .santaWrapper .reindeer .body {
+  position: absolute;
+  width: 58px;
+  height: 31px;
+  top: 84px;
+  left: 28px;
+  border-radius: 50% 0;
+  transform: rotate(-3deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body:before {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 26px;
+  top: -15px;
+  left: 32px;
+  border-radius: 0 0 50% 50%;
+  -webkit-transform: rotate(-3deg);
+  transform: rotate(-55deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body:after {
+  content: "";
+  position: absolute;
+  width: 43px;
+  height: 26px;
+  top: -11px;
+  left: 29px;
+  border-radius: 0 0 50% 50%;
+  -webkit-transform: rotate(-3deg);
+  transform: rotate(-30deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.front .inner {
+  position: absolute;
+  width: 40px;
+  height: 8px;
+  top: 13px;
+  left: 35px;
+  border-radius: 0 50%;
+  transform: rotate(-17deg);
+  background-color: #cca58b;
+  animation: reindeer__leg-front 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.front .inner .extension {
+  position: absolute;
+  width: 28px;
+  height: 8px;
+  top: 3px;
+  left: 100%;
+  border-radius: 2px 50%;
+  transform: rotate(131deg);
+  background-color: #cca58b;
+  transform-origin: top left;
+  animation: reindeer__leg-front-extension 0.2s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.front .inner .extension:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -2px;
+  width: 7px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: #000;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.back .inner {
+  position: absolute;
+  width: 56px;
+  height: 9px;
+  top: 37px;
+  left: -29px;
+  border-radius: 0 50%;
+  transform: rotate(-73deg);
+  animation: reindeer__leg-back 0.3s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.back .inner:before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 16px;
+  top: 4px;
+  left: 25px;
+  border-radius: 0 50%;
+  transform: rotate(15deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.back .inner:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 65%;
+  height: 100%;
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.back .inner .extension {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 8px;
+  background: #cca58b;
+  border-radius: 2px 50%;
+  transform-origin: top right;
+  animation: reindeer__leg-back-extension 0.2s linear alternate infinite;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .foot.back .inner .extension:after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 9px;
+  top: -2px;
+  left: -2px;
+  border-radius: 2px 0 2px 2px;
+  transform: rotate(14deg);
+  background-color: #000;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .tail {
+  position: absolute;
+  width: 27px;
+  height: 26px;
+  top: 6px;
+  left: -8px;
+  border-radius: 50% 2px;
+  transform: rotate(-17deg);
+  background-color: #cca58b;
+}
+.countdownSection .decorations .santaWrapper .reindeer .body .tail:before {
+  content: "";
+  position: absolute;
+  background-color: #cca58b;
+  border-radius: 50%;
+  top: -2px;
+  left: -3px;
+  width: 15px;
+  height: 5px;
+  transform: rotate(25deg);
+}
+.countdownSection .container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 90%;
+  padding: 50px 0;
+}
+.countdownSection .container .counterWrapper {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.countdownSection .container .counterWrapper p {
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/fotos-3cba1.appspot.com/o/navidad%2Fpattern-2.jpg?alt=media&token=c3ebea10-d285-4b2a-846b-12154d670bf2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 100px;
+}
+.countdownSection .container .counterWrapper .countdown {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.countdownSection .container .counterWrapper .countdown .countdownProp {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 240px;
+  margin: 10px;
+  font-size: 200px;
+  line-height: 150px;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/fotos-3cba1.appspot.com/o/navidad%2Fpattern-1.png?alt=media&token=e62eb3c2-bea0-49ae-a398-ab426f5605c1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 100px #fff;
+}
+.countdownSection .container .counterWrapper .countdown .countdownProp:not(:first-child):before {
+  content: ":";
+}
+.countdownSection .container .counterWrapper .countdown .countdownProp:after {
+  content: attr(date-count);
+  width: 100%;
+  font-size: 20px;
+  -webkit-text-fill-color: #fff;
+  line-height: normal;
+}
+
+@media only screen and (max-width: 700px) {
+  .countdownSection .decorations .decoration {
+    width: 300px;
+    height: 300px;
+  }
+  .countdownSection .container .counterWrapper p {
+    font-size: 70px;
+  }
+  .countdownSection .container .counterWrapper .countdown {
+    margin: 20px 0;
+  }
+  .countdownSection .container .counterWrapper .countdown .countdownProp {
+    width: 120px;
+    font-size: 100px;
+    line-height: 80px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .countdownSection .decorations .santaWrapper {
+    display: none;
+  }
+  .countdownSection .container .counterWrapper p {
+    font-size: 50px;
+  }
+  .countdownSection .container .counterWrapper .countdown .countdownProp {
+    display: block;
+  }
+  .countdownSection .container .counterWrapper .countdown .countdownProp:not(:first-child):before {
+    display: none;
+  }
+  .countdownSection .container .counterWrapper .countdown .countdownProp:after {
+    display: block;
+  }
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+
+
+
+  <section class="countdownSection">
+  <div class="decorations">
+    <div class="decoration" data-pos="bottom left"></div>
+    <div class="decoration" data-pos="top right"></div>
+    <svg class="snow" xmlns="http://www.w3.org/2000/svg"><circle class="particle" r="1.4155589993044972" cx="18.192101328779913%" cy="-3.9274651911458767"></circle><circle class="particle" r="2.6254701576337545" cx="2.082687794623551%" cy="-9.448494434098464"></circle><circle class="particle" r="2.142087822066637" cx="73.35921389561952%" cy="-98.21444491568738"></circle><circle class="particle" r="1.6882269609863543" cx="45.651674322962336%" cy="-50.577037722513886"></circle><circle class="particle" r="1.6320878599518407" cx="29.565420410536326%" cy="-85.72816575674773"></circle><circle class="particle" r="1.767566190080231" cx="7.337460453446369%" cy="-9.816373096749757"></circle><circle class="particle" r="1.0930190210020898" cx="32.724890782773%" cy="-73.85734865219548"></circle><circle class="particle" r="2.4002450381682214" cx="5.99427550279187%" cy="-12.399512756725189"></circle><circle class="particle" r="2.990577682252767" cx="12.25730627638438%" cy="-20.57024668925864"></circle><circle class="particle" r="1.4230103731466048" cx="16.994955390032914%" cy="-27.409467610097117"></circle><circle class="particle" r="1.729689881615088" cx="87.39625640793834%" cy="-68.39397002818714"></circle><circle class="particle" r="1.7805588420179004" cx="66.81366348625448%" cy="-17.542905782153777"></circle><circle class="particle" r="1.2275122683172168" cx="31.820538707635105%" cy="-19.19927246389423"></circle><circle class="particle" r="2.134869562455744" cx="50.241681060006584%" cy="-2.4720040537008643"></circle><circle class="particle" r="2.1620309130803967" cx="85.38363276537214%" cy="-3.560162172283377"></circle><circle class="particle" r="2.0506630789852083" cx="23.14717469147211%" cy="-29.949676882200933"></circle><circle class="particle" r="2.698838393128683" cx="54.570272652018524%" cy="-29.440127521359063"></circle><circle class="particle" r="1.1110484127204647" cx="3.0562285043676156%" cy="-42.0264405826217"></circle><circle class="particle" r="2.7203025105024294" cx="35.57419914333703%" cy="-25.95272725862267"></circle><circle class="particle" r="2.3020851009493666" cx="91.63713679485653%" cy="-35.31182501917493"></circle><circle class="particle" r="1.2463428205163614" cx="54.780953400068924%" cy="-58.747950517250466"></circle><circle class="particle" r="2.4892331361508524" cx="82.40093079645878%" cy="-93.71631022839166"></circle><circle class="particle" r="2.004658636772306" cx="48.74364540615665%" cy="-76.13967529379308"></circle><circle class="particle" r="2.0305541109438607" cx="64.59002469358123%" cy="-67.85545014249153"></circle><circle class="particle" r="1.0628042225954273" cx="26.11617067015265%" cy="-32.60085222526574"></circle><circle class="particle" r="2.307345559887212" cx="32.58544572566422%" cy="-32.51755044247122"></circle><circle class="particle" r="2.2835442168588314" cx="30.460369894867647%" cy="-49.720597726460596"></circle><circle class="particle" r="1.2754035168993956" cx="44.82040101682948%" cy="-95.6581314227773"></circle><circle class="particle" r="2.0166149211211164" cx="54.87204135647779%" cy="-74.93793553430811"></circle><circle class="particle" r="2.520656577179088" cx="38.87690067046825%" cy="-9.01681043288039"></circle><circle class="particle" r="2.3561443918054046" cx="49.03887357881714%" cy="-24.30730974752655"></circle><circle class="particle" r="1.8900802597134145" cx="22.877384225317385%" cy="-62.638621426343484"></circle><circle class="particle" r="2.245180421114681" cx="15.652119952619394%" cy="-29.739641443127194"></circle><circle class="particle" r="1.0921934586901707" cx="91.7579701190746%" cy="-76.18928868262468"></circle><circle class="particle" r="2.7714638211672993" cx="48.47583220466319%" cy="-25.108241946953214"></circle><circle class="particle" r="1.7422242421388252" cx="84.5292757317463%" cy="-54.58317088419033"></circle><circle class="particle" r="2.498768302291043" cx="40.52666559955016%" cy="-24.589960517086034"></circle><circle class="particle" r="2.222046799353442" cx="87.65042392312135%" cy="-40.46951904526025"></circle><circle class="particle" r="1.9537355863305992" cx="32.347672318793066%" cy="-78.01332454210728"></circle><circle class="particle" r="1.8794977429567958" cx="27.50968302026425%" cy="-63.47770891674695"></circle><circle class="particle" r="1.8987781014638938" cx="88.53689752792967%" cy="-42.067199017236995"></circle><circle class="particle" r="2.437581584239181" cx="54.17131856775656%" cy="-83.02389773295853"></circle><circle class="particle" r="2.1918131764142066" cx="11.493269562867463%" cy="-46.720858081543966"></circle><circle class="particle" r="2.2584440224331224" cx="86.78785732350015%" cy="-52.78526107737479"></circle><circle class="particle" r="1.8256314262524955" cx="36.370777230558645%" cy="-61.672684238096465"></circle><circle class="particle" r="1.2670459502706715" cx="49.13642648395192%" cy="-93.97728364205513"></circle><circle class="particle" r="1.778707489111798" cx="23.44168587381652%" cy="-8.616077978326418"></circle><circle class="particle" r="2.676380871933146" cx="70.40583619720846%" cy="-15.530716888201544"></circle><circle class="particle" r="2.047372356967787" cx="86.55717444582434%" cy="-89.01518028140244"></circle><circle class="particle" r="1.0696113615277132" cx="47.021462142227264%" cy="-41.587401382627064"></circle><circle class="particle" r="2.06826724790781" cx="67.88281544136785%" cy="-59.51782027108452"></circle><circle class="particle" r="1.4037578180896744" cx="52.18915803661449%" cy="-82.39327874956703"></circle><circle class="particle" r="1.9740279117044959" cx="28.548623377915913%" cy="-5.924812953072635"></circle><circle class="particle" r="2.314914915534327" cx="80.67522005570756%" cy="-73.45072001098642"></circle><circle class="particle" r="2.0727844201585137" cx="15.93832266204287%" cy="-92.06354731390391"></circle><circle class="particle" r="1.6840139872775701" cx="51.306898274094166%" cy="-57.97740762020878"></circle><circle class="particle" r="2.102607872691966" cx="81.95365775849497%" cy="-90.85707446054515"></circle><circle class="particle" r="1.1258953000195233" cx="36.31104779834227%" cy="-45.51108524439749"></circle><circle class="particle" r="2.521881322010228" cx="95.5129893960812%" cy="-34.52726199218291"></circle><circle class="particle" r="2.885523397065918" cx="29.671521777659944%" cy="-17.871273042967303"></circle><circle class="particle" r="2.079981546613963" cx="73.88971156650288%" cy="-90.43750105239822"></circle><circle class="particle" r="1.090946987832902" cx="95.15371968930062%" cy="-83.90856981937547"></circle><circle class="particle" r="2.6931109406426845" cx="33.60299826123831%" cy="-24.631087159052832"></circle><circle class="particle" r="1.8310329942422277" cx="67.21473999523349%" cy="-14.050273620965896"></circle><circle class="particle" r="1.9747034273127992" cx="99.38019300386384%" cy="-59.11133814769146"></circle><circle class="particle" r="2.6615042058297735" cx="63.12279933858748%" cy="-44.01539296136954"></circle><circle class="particle" r="2.1499288945338235" cx="61.72415978105471%" cy="-59.71080082868949"></circle><circle class="particle" r="1.9475556496725281" cx="42.44144972588853%" cy="-22.40065007094991"></circle><circle class="particle" r="2.521581559197021" cx="5.885864421996021%" cy="-75.8675493214326"></circle><circle class="particle" r="1.6411410860385796" cx="58.510866022444716%" cy="-98.93427205652382"></circle><circle class="particle" r="1.4013110053186635" cx="49.29849875402214%" cy="-37.979249506430854"></circle><circle class="particle" r="2.2954398455760536" cx="93.09826086661374%" cy="-44.37112189916728"></circle><circle class="particle" r="2.753819821855753" cx="21.139347139760286%" cy="-59.59836188093833"></circle><circle class="particle" r="1.4271620709636044" cx="45.01610455698486%" cy="-46.28343671412153"></circle><circle class="particle" r="1.3195155078305714" cx="29.921236273453676%" cy="-38.86679726382337"></circle><circle class="particle" r="2.5387341825676297" cx="54.896496759149194%" cy="-11.183908493070131"></circle><circle class="particle" r="1.9088511218964999" cx="87.20631854730411%" cy="-6.218999609254117"></circle><circle class="particle" r="2.9644227408801624" cx="89.99126913740375%" cy="-69.44816459710215"></circle><circle class="particle" r="2.4248139564925832" cx="1.3253973042624083%" cy="-71.91470428849405"></circle><circle class="particle" r="1.9210771939940865" cx="46.984382244848724%" cy="-3.4245573333436665"></circle><circle class="particle" r="1.118242859429611" cx="56.03023305805683%" cy="-73.6265935512203"></circle><circle class="particle" r="1.1501450899172574" cx="60.97786415401794%" cy="-16.570122365827253"></circle><circle class="particle" r="2.8602445994297088" cx="13.399392970187517%" cy="-14.907688502191057"></circle><circle class="particle" r="2.1371864251920667" cx="22.54527279692162%" cy="-47.08620880328994"></circle><circle class="particle" r="1.1985324266826223" cx="62.529503982369626%" cy="-4.8685393707133215"></circle><circle class="particle" r="2.140081367755645" cx="62.322521367400064%" cy="-82.29756052129544"></circle><circle class="particle" r="2.3034186162890253" cx="10.339236863834271%" cy="-17.11036926851923"></circle><circle class="particle" r="2.759363368837833" cx="12.117512946268633%" cy="-47.394077009285645"></circle><circle class="particle" r="1.1472088039151052" cx="43.78219025708435%" cy="-95.27701742504465"></circle><circle class="particle" r="2.4898622369875305" cx="4.069736936862888%" cy="-21.89767747081877"></circle><circle class="particle" r="2.4517334775726227" cx="20.610336215078817%" cy="-89.18343401801535"></circle><circle class="particle" r="2.0175131154818247" cx="83.04398189546016%" cy="-96.43094315685805"></circle><circle class="particle" r="2.5802969715044344" cx="11.832634755280566%" cy="-96.60983955296837"></circle><circle class="particle" r="2.5527103371222206" cx="89.09743944684095%" cy="-68.99299426191516"></circle><circle class="particle" r="2.933724339684515" cx="48.27300528359594%" cy="-79.0812544132066"></circle><circle class="particle" r="1.8660597475778027" cx="72.49189237914753%" cy="-73.12645077343652"></circle><circle class="particle" r="1.5853517732493776" cx="11.045410315256378%" cy="-22.753914178397448"></circle><circle class="particle" r="2.1285776363668942" cx="95.72872589470227%" cy="-52.010902224973236"></circle><circle class="particle" r="1.9260950103302554" cx="71.52362191743663%" cy="-25.214107434576082"></circle><circle class="particle" r="1.474590946451492" cx="49.62589971465036%" cy="-73.00276352672053"></circle></svg>
+    <div class="santaWrapper">
+      <div class="santa">
+        <div class="hat">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="face">
+          <div class="eyeBrows left"></div>
+          <div class="eyeBrows right"></div>
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="nose"></div>
+          <div class="cheek left"></div>
+          <div class="cheek right"></div>
+          <div class="beard">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="sweater"></div>
+          <div class="hand left">
+            <div class="inner"></div>
+          </div>
+          <div class="hand right"></div>
+        </div>
+      </div>
+      <div class="rope"></div>
+      <div class="rope back"></div>
+      <div class="sled"></div>
+      <div class="reindeer">
+        <div class="face">
+          <div class="ear"></div>
+          <div class="horn right"></div>
+          <div class="horn left"></div>
+        </div>
+        <div class="body">
+          <div class="foot front">
+            <div class="inner">
+              <div class="extension"></div>
+            </div>
+          </div>
+          <div class="foot back">
+            <div class="inner">
+              <div class="extension"></div>
+            </div>
+          </div>
+          <div class="tail"></div>
+        </div>
+      </div>
+      <div class="reindeer second">
+        <div class="rope"></div>
+        <div class="face">
+          <div class="ear"></div>
+          <div class="horn right"></div>
+          <div class="horn left"></div>
+        </div>
+        <div class="body">
+          <div class="foot front">
+            <div class="inner">
+              <div class="extension"></div>
+            </div>
+          </div>
+          <div class="foot back">
+            <div class="inner">
+              <div class="extension"></div>
+            </div>
+          </div>
+          <div class="tail"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="counterWrapper">
+      <p>there are only</p>
+      <div class="countdown">
+        <div class="countdownProp" date-count="days">22</div>
+        <div class="countdownProp" date-count="hours">13</div>
+        <div class="countdownProp" date-count="minutes">53</div>
+        <div class="countdownProp" date-count="seconds">22</div>
+        </div>
+      <p>until christmas</p>
+    </div>
+  </div>
+</section>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script id="rendered-js">
+$(function () {
+  $.fn.extend({
+    countdown: function (props) {
+      props = jQuery.extend({ //Default props
+        until: new Date() },
+      props);
+      const state = {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0 };
+
+      let render = props => {
+        const { days, hours, minutes, seconds } = props;
+        this.empty();
+        this.append(`
+        <div class="countdownProp" date-count="${days == 1 ? 'day' : 'days'}">${days}</div>
+        <div class="countdownProp" date-count="${hours == 1 ? 'hour' : 'hours'}">${hours < 10 ? '0' + hours : hours}</div>
+        <div class="countdownProp" date-count="${minutes == 1 ? 'minute' : 'minutes'}">${minutes < 10 ? '0' + minutes : minutes}</div>
+        <div class="countdownProp" date-count="${seconds == 1 ? 'second' : 'seconds'}">${seconds < 10 ? '0' + seconds : seconds}</div>
+        `);
+      };
+      render(state);
+      let update = setInterval(function () {
+        let counter = props.until - new Date().getTime();
+        if (counter <= 0) {
+          clearInterval(update);
+          return false;
+        }
+        state.days = Math.floor(counter / (1000 * 60 * 60 * 24));
+        state.hours = Math.floor(counter % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+        state.minutes = Math.floor(counter % (1000 * 60 * 60) / (1000 * 60));
+        state.seconds = Math.floor(counter % (1000 * 60) / 1000);
+        render(state);
+      }, 1000);
+      return this;
+    },
+    snow: function (props) {
+      props = jQuery.extend({ //Default props
+        amount: 60 },
+      props);
+      let random = (min, max) => {
+        return Math.random() * (max - min) + min;
+      };
+      let svg = '<svg class="snow" xmlns="http://www.w3.org/2000/svg">';
+      for (let index = 0; index < props.amount; index++) {
+        svg += `<circle class="particle" r="${random(1, 3)}" cx="${random(1, 100)}%" cy="-${random(1, 100)}" />`;
+      }
+      svg += '</svg>';
+      this.replaceWith(svg);
+    } });
+
+
+  $('.countdown').countdown({
+    until: new Date(`Dec, 25, ${new Date().getFullYear()}`) // you can add time optionally ('Dec, 25, 2020 00:00:00')
+  });
+  $('.snow').snow({
+    amount: 100 //Number of particles
+  });
+});
+//# 
+    </script></div><div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style>
+  </body></html>
